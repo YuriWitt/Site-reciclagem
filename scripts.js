@@ -57,6 +57,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  const videosOnPage = document.querySelectorAll(".vertical-videos video");
+  if (videosOnPage.length > 0 && "IntersectionObserver" in window) {
+    let activeVideo = null;
+
+    const videoObserver = new IntersectionObserver((entries) => {
+      const visibleEntries = entries
+        .filter((entry) => entry.intersectionRatio >= 0.55)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      const nextVideo = visibleEntries.length ? visibleEntries[0].target : null;
+
+      videosOnPage.forEach((video) => {
+        if (video === nextVideo) {
+          if (activeVideo && activeVideo !== video) {
+            activeVideo.pause();
+          }
+          activeVideo = video;
+          video.muted = true;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+
+      if (!nextVideo) {
+        activeVideo = null;
+      }
+    }, {
+      threshold: [0.55],
+    });
+
+    videosOnPage.forEach((video) => videoObserver.observe(video));
+  }
+
   const menuToggle = document.querySelector(".mobile-menu-toggle");
   const mainNav = document.querySelector(".main-nav");
 

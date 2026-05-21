@@ -221,14 +221,6 @@ img {
   color: var(--muted);
 }
 
-.video-card {
-  background: white;
-  border: 1px solid rgba(61, 47, 34, 0.12);
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(34, 30, 22, 0.08);
-  overflow: hidden;
-}
-
 .video-card h3,
 .video-card p {
   margin: 1rem;
@@ -238,21 +230,34 @@ img {
   color: var(--muted);
 }
 
+.video-card {
+  background: white;
+  border: 1px solid rgba(61, 47, 34, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(34, 30, 22, 0.08);
+  overflow: hidden;
+  padding: 1rem;
+}
+
 .video-card video {
   display: block;
-  margin: 0 1rem 1rem;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  margin: 0 0 1rem;
+  background: #000;
 }
 
 .group-video video,
 .vertical-videos video {
   width: 100%;
-  border-radius: 18px;
-  background: #000;
 }
 
 .vertical-videos {
   display: grid;
   gap: 1.5rem;
+  grid-template-columns: 1fr;
 }
 
 .carousel {
