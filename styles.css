@@ -134,6 +134,12 @@ img {
   font-weight: 700;
 }
 
+.button-outline {
+  background: transparent;
+  color: var(--accent-dark);
+  border: 2px solid var(--accent);
+}
+
 .section {
   padding: 3rem 0;
 }
@@ -266,6 +272,79 @@ img {
 .vertical-videos video {
   aspect-ratio: 9 / 16;
   object-fit: contain;
+}
+
+.videos-page .vertical-videos {
+  max-width: 980px;
+  grid-template-columns: 1fr;
+}
+
+.videos-page .video-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.videos-page .video-card-featured {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f3e9 100%);
+}
+
+.videos-page .video-card video {
+  aspect-ratio: 16 / 9;
+  max-height: 640px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.video-card-links {
+  margin-top: auto;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.video-card-links .button {
+  margin-top: 0;
+}
+
+.dumus-video-info {
+  background: white;
+  border: 1px solid rgba(61, 47, 34, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(34, 30, 22, 0.08);
+  padding: 1.5rem;
+}
+
+.dumus-info-section .dumus-video-info {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.dumus-video-info h2 {
+  margin-top: 0;
+  color: var(--accent-dark);
+}
+
+.dumus-video-info p {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.dumus-video-card {
+  margin: 0;
+}
+
+.dumus-video-section .dumus-video-card {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.dumus-video-card video {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  max-height: 640px;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .carousel {
@@ -628,7 +707,44 @@ img {
   }
 
   .vertical-videos video {
-    max-height: 78vh;
+    max-height: 62vh;
     object-fit: contain;
+  }
+
+  .videos-page .vertical-videos {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+
+  .videos-page .video-card {
+    max-width: 360px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .videos-page .video-card video,
+  .dumus-video-card video {
+    aspect-ratio: 9 / 16;
+    width: min(100%, 300px);
+    max-width: 300px;
+    max-height: 62vh;
+    margin: 0 auto 0.9rem;
+  }
+
+  .video-card-links {
+    flex-direction: column;
+  }
+
+  .video-card-links .button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dumus-info-section .dumus-video-info {
+    max-width: 430px;
+  }
+
+  .dumus-video-section .dumus-video-card {
+    max-width: 360px;
   }
 }

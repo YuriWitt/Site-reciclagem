@@ -1,20 +1,38 @@
 document.addEventListener("DOMContentLoaded", function () {
+  function getDirectChildByClass(parent, className) {
+    return (
+      Array.from(parent.children).find(
+        (child) => child.classList && child.classList.contains(className)
+      ) || null
+    );
+  }
+
+  function safePlay(video) {
+    const playResult = video.play();
+    if (playResult && typeof playResult.catch === "function") {
+      playResult.catch(() => {});
+    }
+  }
+
   document.querySelectorAll(".carousel").forEach((carousel) => {
-    const track = carousel.querySelector(":scope > .carousel-track");
+    const track = getDirectChildByClass(carousel, "carousel-track");
     if (!track) return;
 
     const slides = Array.from(track.children);
-    const controls = carousel.querySelector(":scope > .carousel-controls");
+    const controls = getDirectChildByClass(carousel, "carousel-controls");
     const prevButton = controls ? controls.querySelector(".carousel-button.prev") : null;
     const nextButton = controls ? controls.querySelector(".carousel-button.next") : null;
     const indicators = controls ? Array.from(controls.querySelectorAll(".carousel-indicator")) : [];
     let currentIndex = 0;
 
     function updateCarousel(index) {
+      if (slides.length === 0) return;
       if (index < 0) index = slides.length - 1;
       if (index >= slides.length) index = 0;
       currentIndex = index;
-      const offset = slides[0].getBoundingClientRect().width * index;
+      const slideWidth =
+        slides[0].getBoundingClientRect().width || carousel.getBoundingClientRect().width;
+      const offset = slideWidth * index;
       track.style.transform = `translateX(-${offset}px)`;
 
       indicators.forEach((button, buttonIndex) => {
@@ -25,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const video = slide.querySelector("video");
         if (video) {
           if (slideIndex === index) {
-            video.play().catch(() => {});
+            safePlay(video);
           } else {
             video.pause();
             video.currentTime = 0;
@@ -54,6 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (slides.length > 0) {
       updateCarousel(0);
+      window.addEventListener("resize", function () {
+        updateCarousel(currentIndex);
+      });
     }
   });
 
@@ -75,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           activeVideo = video;
           video.muted = true;
-          video.play().catch(() => {});
+          safePlay(video);
         } else {
           video.pause();
         }
