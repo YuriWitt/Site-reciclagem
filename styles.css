@@ -258,6 +258,14 @@ img {
   display: grid;
   gap: 1.5rem;
   grid-template-columns: 1fr;
+  align-items: start;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.vertical-videos video {
+  aspect-ratio: 9 / 16;
+  object-fit: contain;
 }
 
 .carousel {
@@ -601,5 +609,26 @@ img {
     padding: 0.85rem 1rem;
     background: rgba(106, 143, 78, 0.1);
     border-radius: 999px;
+  }
+  .vertical-videos {
+    grid-template-columns: 1fr;
+    max-width: none;
+  }
+
+  .vertical-videos .video-card {
+    width: 100%;
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 0.75rem;
+  }
+
+  .vertical-videos .video-card h3,
+  .vertical-videos .video-card p {
+    margin: 0.75rem;
+  }
+
+  .vertical-videos video {
+    max-height: 78vh;
+    object-fit: contain;
   }
 }
